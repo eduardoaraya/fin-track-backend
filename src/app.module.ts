@@ -10,14 +10,25 @@ import { PaymentModule } from './payment/payment.module';
 import { BudgetModule } from './budget/budget.module';
 import { InvestmentModule } from './investment/investment.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user/user';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: "sqlite",
+      type: 'sqlite',
       database: 'local-db.sql',
-    }), 
-    UserModule, AccountModule, TransactionModule, CardModule, LoansModule, PaymentModule, BudgetModule, InvestmentModule],
+      synchronize: process.env.NODE_ENV !== 'production',
+      entities: [User],
+    }),
+    UserModule,
+    AccountModule,
+    TransactionModule,
+    CardModule,
+    LoansModule,
+    PaymentModule,
+    BudgetModule,
+    InvestmentModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
